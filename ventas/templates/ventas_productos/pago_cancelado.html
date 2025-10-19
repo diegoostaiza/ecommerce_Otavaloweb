@@ -1,0 +1,8 @@
+{% extends "principal/base.html" %}
+{% block contenido %}
+    <div class="container text-center mt-5">
+        <h1>❌ Pago cancelado</h1>
+        <p>El pago no se ha procesado.</p>
+        <a href="{% url 'ventas:productos' %}" class="btn btn-warning">Intentar de nuevo</a>
+    </div>
+{% endblock %}

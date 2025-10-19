@@ -1,0 +1,107 @@
+{% extends "principal/base.html" %} 
+{% block titulo %}Otavalo-Productos {% endblock titulo %} 
+{% block contenido %}
+<div class="container-fluid fruite py-5 mt-5">
+  <div class="container py-5">
+    <h1 class="mb-4">Nuestros Productos</h1>
+    <div class="row g-4">
+      <div class="col-lg-3">
+        <div class="mb-3">
+          <h4>Categorías</h4>
+          <ul class="list-unstyled fruite-categorie">
+            {% for categoria in categorias %}
+            <li>
+              <div class="d-flex justify-content-between fruite-name">
+                <a href="{% url 'ventas:productos_por_categoria' categoria.idcategoriaarticulo %}" class="text-primary">
+                  {{ categoria.descripcion_categoriaarticulo }}
+                </a>
+                <span>({{ categoria.num_articulos }})</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-9">
+        <div class="row g-4 justify-content-center">
+          {% for item in page_obj %}
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+            <div
+              class="product-item image-zoom-effect link-effect border rounded text-center d-flex flex-column w-100"
+            >
+              <div class="image-holder position-relative overflow-hidden">
+                <a href="{% url 'ventas:detalle_producto' idarticulo=item.idarticulo %}">
+                  <img
+                    src="{{ item.imagen.url }}"
+                    alt="{{ item.nombre_articulo }}"
+                    class="product-image img-fluid w-100"
+                  />
+                </a>
+                <a
+                  href="#"
+                  class="btn-icon btn-wishlist position-absolute top-0 end-0 m-2"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <use xlink:href="#heart"></use>
+                  </svg>
+                </a>
+              </div>
+              <div
+                class="product-content flex-grow-1 d-flex flex-column justify-content-between p-3"
+              >
+                <h6 class="element-title text-uppercase fs-6 mb-2">
+                  <a
+                    href="index.html"
+                    class="text-dark text-decoration-none d-block"
+                    >{{ item.nombre_articulo }}</a
+                  >
+                </h6>
+                <div class="mt-auto">
+                  <a
+                    href="#"
+                    class="text-decoration-none text-center d-block"
+                    data-after="Añadir al carrito"
+                  >
+                    <span class="fs-6 text-primary fw-bold"
+                      >${{ item.precio_base  }}</span
+                    >
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- Paginación -->
+          <div class="col-12">
+            <div class="pagination d-flex justify-content-center mt-5">
+              {% if page_obj.has_previous %}
+              <a
+                href="?page={{ page_obj.previous_page_number }}"
+                class="btn btn-outline-dark rounded-pill px-3"
+                >&laquo;</a
+              >
+              {% endif %} {% for num in page_obj.paginator.page_range %}
+              <a
+                href="?page={{ num }}"
+                class="btn {% if page_obj.number == num %}btn-dark text-white{% else %}btn-outline-dark{% endif %} rounded-pill px-3"
+              >
+                {{ num }}
+              </a>
+              {% endfor %} {% if page_obj.has_next %}
+              <a
+                href="?page={{ page_obj.next_page_number }}"
+                class="btn btn-outline-dark rounded-pill px-3"
+                >&raquo;</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock contenido %}

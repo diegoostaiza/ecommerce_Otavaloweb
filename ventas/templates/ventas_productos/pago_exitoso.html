@@ -1,0 +1,29 @@
+{% extends "principal/base.html" %}
+
+{% block titulo %}Pago Exitoso{% endblock titulo %}
+
+{% block contenido %}
+<div class="container mt-5 text-center">
+    <h2 class="text-success">¡Pago Exitoso!</h2>
+    <p>Gracias por tu compra. Puedes descargar tu factura aquí:</p>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Factura #{{ factura.idfactura }}</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Cliente:</strong> {{ factura.cliente.nombre_cliente }}</p>
+            <p><strong>Fecha de Emisión:</strong> {{ factura.fecha_emision }}</p>
+            <p><strong>Total:</strong> ${{ factura.total }}</p>
+            <p><strong>Número de Autorización:</strong> {{ factura.numero_autorizacion }}</p>
+
+        </div>
+    </div>
+
+    <a href="{% url 'ventas:generar_factura_pdf' factura.idfactura %}" class="btn btn-danger mt-4">
+        Descargar Factura PDF
+    </a>
+    
+    <a href="{% url 'ventas:productos' %}" class="btn btn-primary mt-4">Seguir Comprando</a>
+</div>
+{% endblock contenido %}

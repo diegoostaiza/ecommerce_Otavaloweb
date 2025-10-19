@@ -1,0 +1,108 @@
+{% extends "principal/base.html" %} {% block titulo %}Otavalo- {{
+articulo.nombre_articulo }}{% endblock titulo %} {% block contenido %}
+<div class="container mt-5">
+  <div class="row">
+    <!-- IMAGEN DEL PRODUCTO -->
+    <div class="col-md-6 mb-4 d-flex flex-column align-items-center">
+      <img
+        src="{{ articulo.imagen.url }}"
+        alt="Product"
+        class="img-fluid rounded mb-3 product-image"
+        id="mainImage"
+      />
+      <div class="d-flex justify-content-center gap-5">
+        <img
+          src="{{ articulo.imagen.url }}"
+          alt="Thumbnail 1"
+          class="thumbnail rounded active"
+          onclick="changeImage(event, this.src)"
+        />
+      </div>
+    </div>
+
+    <!-- DETALLES DEL PRODUCTO -->
+    <div class="col-md-6">
+      <h2 class="mb-3">{{ articulo.nombre_articulo }}</h2>
+      <p class="text-muted mb-4">Cod: {{ articulo.codigoarticulo }}</p>
+
+      <!-- PRECIO -->
+      <div class="mb-3">
+        <span class="h4 me-2"
+          >$ <span id="precio">{{ articulo.precio_base }}</span></span
+        >
+      </div>
+
+      <p class="mb-4">{{ articulo.descripcion_articulo }}</p>
+
+      <div class="mb-4">
+        <h5>Talla:</h5>
+        <div class="btn-group" role="group" aria-label="Seleccionar Talla">
+          {% for variante in variantes %}
+          <input
+            type="radio"
+            class="btn-check"
+            name="talla"
+            id="talla{{ variante.idvariante }}"
+            autocomplete="off"
+            value="{{ variante.idvariante }}"
+            data-precio="{{ variante.precio_adicional|floatformat:2 }}"
+            
+          />
+          <label
+            class="btn btn-outline-dark"
+            for="talla{{ variante.idvariante }}"
+          >
+            {{ variante.talla_ropa }}
+          </label>
+
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- CANTIDAD -->
+      <div class="mb-4">
+        <label for="quantity" class="form-label">Cantidad:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="quantity"
+          value="1"
+          min="1"
+          style="width: 80px"
+        />
+      </div>
+
+      <!-- BOTÓN PARA AÑADIR AL CARRITO -->
+      <button class="btn btn-primary btn-lg mb-3 me-2" 
+        id="btnAgregarCarrito" 
+        data-url="{% url 'ventas:agregar_al_carrito' %}"
+        data-articulo-id="{{ articulo.idarticulo }}">
+    <i class="bi bi-cart-plus"></i> Añadir al carrito
+</button>
+
+
+
+<button class="btn btn-outline-secondary btn-lg mb-3 btn-favorito" 
+        data-articulo-id="{{ articulo.idarticulo }}">
+    <i class="bi bi-heart"></i> Agregar a favorito
+</button>
+
+
+    </div>
+  </div>
+</div>
+{% endblock contenido %} 
+{% block script %}
+<script>
+  function changeImage(event, src) {
+    document.getElementById("mainImage").src = src;
+    document
+      .querySelectorAll(".thumbnail")
+      .forEach((thumb) => thumb.classList.remove("active"));
+    event.target.classList.add("active");
+  }
+</script>
+
+
+
+{% endblock script %}

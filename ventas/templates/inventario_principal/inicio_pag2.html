@@ -1,0 +1,70 @@
+{% extends "inventario_principal/base2.html" %}
+
+{% block titulo %}Sistema Inventario Inicio{% endblock titulo %}
+
+{% block contenido %}
+<!-- Page Heading -->
+<div class="mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Panel de Control</h1>
+    <div>
+        <a href="{% url 'inventario:inicio2' %}" class="btn btn-outline-primary btn-sm mt-2 mr-2">
+            Página 1
+        </a>
+        <a href="{% url 'inventario:inicio_pag2' %}" class="btn btn-outline-primary btn-sm mt-2">
+            Página 2
+        </a>
+    </div>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    {% for datos_totales in datos_totales_por_categoria %}
+    <!-- Example -->
+    <div class="col-xl-4 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">{{ datos_totales.categoria.descripcion_categoriaarticulo }}</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <table class="table table-borderless datatable">
+                    <tbody>
+                        <tr>
+                            <td><strong>Título</strong></td>
+                            <td><strong>Total</strong></td>
+                            <td><strong>Porcentaje</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activos</strong></td>
+                            <td>{{ datos_totales.total_activo }}</td>
+                            <td>{{ datos_totales.porcentaje_activo }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inactivos</strong></td>
+                            <td>{{ datos_totales.total_inactivo }}</td>
+                            <td> {{ datos_totales.porcentaje_inactivo }} </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Existencias</strong></td>
+                            <td>{{ datos_totales.total_existencia }}</td>
+                            <td> {{ datos_totales.porcentaje_existencia }} </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Costo</strong></td>
+                            <td>{{ datos_totales.total_costo }}</td>
+                            <td>{{ datos_totales.porcentaje_costo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock contenido %}
+
+
+{% block script %}
+
+{% endblock script %}

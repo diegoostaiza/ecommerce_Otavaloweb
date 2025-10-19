@@ -1,0 +1,311 @@
+{% extends "inventario_principal/base2.html" %}
+
+{% block titulo %}Sistema Inventario Inicio{% endblock titulo %}
+
+{% block contenido %}
+<!-- Page Heading -->
+<div class="mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Panel de Control</h1>
+    
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+
+    
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Productos</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_articulos }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-cubes fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Ventas
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_ventas }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> <!-- Icono de ventas aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Usuarios
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_usuarios }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i> <!-- Icono de usuarios aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-dark shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                            Existencia Total
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_existencia_total }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-warehouse fa-2x text-gray-300"></i> <!-- Icono de existencia total aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Existencia Actual
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_existencia_actual }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-box fa-2x text-gray-300"></i> <!-- Icono de existencia actual aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Ganancia (Mensual)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ganancias_m}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Ganancia (Anual)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{ganancias_anual}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Resumen de Ganancias</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="AreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area Productos Vendidos -->
+    <div class="col-xl-6 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Últimas 10 Ventas</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <table class="table table-borderless datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ul in ultima10_ventas %}
+                        <tr>
+                            <th scope="row"><a href="#">{{ forloop.counter }}</a></th>
+                            <td>{{ ul.1 }}</td>
+                            <td><a href="#" class="text-primary">{{ ul.3 | date:"d/m/Y" }}</a></td>
+                            <td>$ {{ ul.2 }}</td>
+                           
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area Productos Vendidos -->
+   
+
+
+
+
+
+</div>
+
+{% endblock contenido %}
+
+{% block script %}
+<script>
+    {% comment %} function eliminarTarjeta() {
+        var card = document.querySelector('#cardMasVendidos');
+        card.remove();
+    } {% endcomment %}
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var ctx = document.getElementById("AreaChart").getContext('2d');
+        var ganancias_mensuales = JSON.parse('{{ resumen_ganancias|escapejs }}');
+        var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: "Ganancias Mensuales",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: ganancias_mensuales,
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 12
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            callback: function (value, index, values) {
+                                return '$' + number_format(value);
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function (tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+{% endblock script %}

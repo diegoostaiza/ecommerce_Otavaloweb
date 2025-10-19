@@ -1,0 +1,64 @@
+
+{% extends "principal/base.html" %}
+
+{% block titulo %}Inicio de Sessión{% endblock titulo %}
+
+
+
+{% block contenido %}
+
+
+    {% load static %}
+   
+    <title>Inicio de Sesión</title>
+
+ 
+
+
+</head>
+<body style="background-color: #f2f2f2;">
+    <main>
+        <div class="container mt-5">
+    
+          <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+    
+                  <div class="card mb-3">
+                    <div class="card-header h4 text-white bg-primary text-center">Inicio de Sesión</div>
+                    <div class="card-body">
+    
+                      {% load crispy_forms_tags %}
+                      <form method="POST" action="" class="row g-3 needs-validation">
+                        {% csrf_token %}
+                        <div class="col-12">
+                          {{ form | crispy }}
+                        </div>
+                      
+                        <div class="col-12">
+                          <button class="btn btn-primary w-100 text-white" type="submit">Iniciar sesión</button>
+                        </div>
+                        <div class="col-12">
+                          <p class="small mb-0 ">¿Olvidaste tu contraseña? <a href="" class="text-black">Resetear contraseña</a></p>         
+                        </div>
+                        <div class="col-12">
+                          <p class="small mb-0 text-end"> <a href="{% url 'ventas:registro' %}" class="text-black">Registrarse</a></p>         
+                        </div>
+                      </form>
+    
+                    </div>
+                  </div>
+    
+                </div>
+              </div>
+            </div>
+    
+          </section>
+    
+        </div>
+      </main><!-- End #main -->
+
+
+{% endblock %}
+

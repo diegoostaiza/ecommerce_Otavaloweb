@@ -1,0 +1,31 @@
+{% extends "principal/base.html" %}
+
+{% block titulo %}Mis Favoritos{% endblock titulo %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Mis Productos Favoritos</h2>
+
+    {% if favoritos %}
+    <div class="row g-4">
+        {% for item in favoritos %}
+        <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card h-100">
+                <img src="{{ item.articulo.imagen.url }}" class="card-img-top" alt="{{ item.articulo.nombre_articulo }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ item.articulo.nombre_articulo }}</h5>
+                    <p class="card-text">${{ item.articulo.precio_base }}</p>
+                    <a href="{% url 'ventas:detalle_producto' item.articulo.idarticulo %}" class="btn btn-primary">
+                        Ver Producto
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center mt-4">No tienes productos en favoritos.</p>
+    {% endif %}
+</div>
+{% endblock contenido %}

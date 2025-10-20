@@ -68,6 +68,14 @@ WSGI_APPLICATION = 'gestion_ventas.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# Compatibilidad entre psycopg2 y psycopg
+try:
+    import psycopg2 as psycopg
+    import sys
+    sys.modules["psycopg"] = psycopg  # Crea alias para Django >=5
+except ImportError:
+    pass
+
 
 DATABASES = {
     'default': {

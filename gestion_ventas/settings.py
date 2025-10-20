@@ -79,7 +79,7 @@ except ImportError:
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg',
         'NAME': os.getenv('DB_NAME', 'otavalo'),
         'USER': os.getenv('DB_USER', 'postgres'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'proyecto123'),

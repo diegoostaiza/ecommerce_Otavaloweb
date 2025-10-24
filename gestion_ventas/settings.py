@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'ventas',
     'whitenoise.runserver_nostatic',  # Añadir para archivos estáticos
 ]
@@ -125,7 +127,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'diego17052009@gmail.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'iacn zbhn nkdm fmjw')
-
 # Archivos estáticos
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -149,6 +150,13 @@ MEDIA_URL = '/media/'  # Se mantiene solo para compatibilidad
 STRIPE_TEST_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_TEST_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
+# Al final de settings.py
+print("Cloudinary Config:")
+print("Cloud Name:", CLOUDINARY_STORAGE['CLOUD_NAME'])
+print("API Key:", CLOUDINARY_STORAGE['API_KEY'])
+# No imprimas el API Secret por seguridad
+
+
 # Seguridad en producción
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -157,4 +165,3 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-

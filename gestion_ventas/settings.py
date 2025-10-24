@@ -14,7 +14,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['ecommerceotavaloweb-production.up.railway.app']
+ALLOWED_HOSTS = [
+    'ecommerceotavaloweb-production.up.railway.app',
+    '.railway.app',
+    '127.0.0.1', 
+    'localhost',
+    '0.0.0.0'
+]
 
 
 # Application definition
@@ -120,28 +126,30 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'diego17052009@gmail.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'iacn zbhn nkdm fmjw')
 
-# Static files (CSS, JavaScript, Images)
+# Archivos estáticos
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Importante para producción
-
-# Configuración de WhiteNoise para archivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files
-MEDIA_URL = '/imagenes/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'imagenes')
+# --- Configuración de Cloudinary ---
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
-CRISPY_CLASS_CONVERTERS = {
-    'textinput': 'form-control',
-    'fileinput': 'form-control-file',
-    'select': 'custom-select',
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dmkqv0ypa'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '559371938858465'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', '7PKJq6i6tiBdm9r1Nsy4Vy_Vq7E'),
 }
 
-# STRIPE (usa variables de entorno)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'  # Se mantiene solo para compatibilidad
+
+# STRIPE
 STRIPE_TEST_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
 STRIPE_TEST_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
-# Configuración de seguridad para producción
+# Seguridad en producción
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -149,3 +157,4 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+

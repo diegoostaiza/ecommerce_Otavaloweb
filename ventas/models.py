@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 class Categoriaarticulos(models.Model):
     idcategoriaarticulo = models.AutoField(primary_key=True)
@@ -31,7 +32,7 @@ class Articulos(models.Model):
     idarticulo = models.AutoField(primary_key=True)
     codigoarticulo = models.CharField(max_length=10, unique=True, verbose_name="Código de Producto ")
     idsubcategoriaarticulo = models.ForeignKey(SubcategoriaArticulos, on_delete=models.CASCADE, related_name="articulos", verbose_name="Subcategoría")
-    imagen = models.ImageField(upload_to="imagenes", null=True, blank=True, verbose_name="Imagen")
+    imagen = CloudinaryField('imagen', folder='productos/', null=True, blank=True)
     nombre_articulo = models.CharField(max_length=100, verbose_name="Nombre ")
     descripcion_articulo = models.CharField(max_length=255, verbose_name="Descripción ")
     precio_base = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Precio Base")  # Precio base sin considerar talla

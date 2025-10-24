@@ -133,10 +133,20 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # --- Configuración de Cloudinary ---
+# --- Configuración de Cloudinary ---
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+# Configuración principal de Cloudinary
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME', 'dmkqv0ypa'),
+    api_key=os.getenv('CLOUDINARY_API_KEY', '559371938858465'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', '7PKJq6i6tiBdm9r1Nsy4Vy_Vq7E'),
+    secure=True
+)
+
+# Configuración para django-cloudinary-storage
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dmkqv0ypa'),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY', '559371938858465'),
@@ -144,7 +154,6 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'  # Se mantiene solo para compatibilidad
 
 # STRIPE
 STRIPE_TEST_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
